@@ -39,10 +39,12 @@ function updateNavOnLogin() {
 
 function navSubmitClick(evt) {
   console.log("navSubmitClick", evt);
-  $navSubmit.show();
+  $submitForm.show();
 }
 
 $navSubmit.on("click", navSubmitClick);
+
+
 
 /*
 Write a function in nav.js that is called when users click the new “submit” 
