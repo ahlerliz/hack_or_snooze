@@ -9,6 +9,7 @@ const $allStoriesList = $("#all-stories-list");
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
+const $submitForm = $("#submit-form")
 
 const $navSubmit = $("#nav-submit");
 const $navLogin = $("#nav-login");
