@@ -34,3 +34,20 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+/** Show submit form for a new story when a user clicks submit  */
+
+function navSubmitClick(evt) {
+  console.log("navSubmitClick", evt);
+  $navSubmit.show();
+}
+
+$navSubmit.on("click", navSubmitClick);
+
+/*
+Write a function in nav.js that is called when users click the new “submit” 
+navbar link. This function should cause the new story form to 
+appear on the page. Look at the other function names in that 
+file that do similar things and pick something descriptive and similar.
+
+*/
