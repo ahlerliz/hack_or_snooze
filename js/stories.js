@@ -21,11 +21,25 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
+  // (currentUser.favorites.filter(favorite => {
+  // console.log("favorite.storyId is ", favorite.storyId)
+  // console.log("story.storyId is ", story.storyId)
+  // favorite.storyId === story.storyId}))
+  //const storyId = story.storyId
+  const storyIndex = currentUser.favorites.findIndex(favorite => favorite.storyId === story.storyId)
+  let starStyle;
+
+  if (storyIndex === -1) {
+    starStyle = "far"
+  }
+  else {
+    starStyle = "fas"         /// build small helper function to check favorite
+  }
 
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <i class="far fa-star star">  </i>
+        <i class="${starStyle} fa-star star">  </i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -54,7 +68,7 @@ function putStoriesOnPage() {
 
 /** Takes in the user submission values and appends to the page */
 
-async function putSubmittedStoryOnPage(evt){
+async function putSubmittedStoryOnPage(evt) {
   console.log("putSubmittedStoryOnPage has run")
 
   evt.preventDefault();
@@ -62,8 +76,8 @@ async function putSubmittedStoryOnPage(evt){
   const title = $("#title").val();
   const url = $("#url").val();
 
-  let newSubmission = await storyList.addStory(currentUser, 
-      {author, title, url});
+  let newSubmission = await storyList.addStory(currentUser,
+    { author, title, url });
   const $story = generateStoryMarkup(newSubmission);
   $allStoriesList.prepend($story);
 
@@ -78,29 +92,28 @@ $submitForm.on("submit", putSubmittedStoryOnPage);
 *     if not --> adds story
 *     if yes --> removes story
 */
-function checkFavoritesList(evt){
+async function checkFavoritesList(evt) { // toggles favorite story
 
-  const starParentId = evt.target.parentElement.id;
+  const starParentId = evt.target.parentElement.id;   //should be jQuery
   const currStory = storyList.stories.find(story => story.storyId === starParentId);
   const clickedStoryId = currStory.storyId;
   const storyIndex = currentUser.favorites.findIndex(story => story.storyId === clickedStoryId);
 
-  if (storyIndex === -1){
-    currentUser.addFavorite(currStory)
-    $(evt.target).toggleClass("fas far");
+  if (storyIndex === -1) {
+    await currentUser.addFavorite(currStory)
   }
-  else{
-    currentUser.removeFavorite(currStory)
-    $(evt.target).toggleClass("fas far");
+  else {
+    await currentUser.removeFavorite(currStory)
   }
+  $(evt.target).toggleClass("fas far");
 }
-
-$allStoriesList.on("click", ".star", checkFavoritesList)
+//stories container
+$storiesContainer.on("click", ".star", checkFavoritesList)
 
 /** Adding favorite stories to the HTML
  */
 
- function getAndShowFavorites() {
+function getAndShowFavorites() {
 
   $favStoriesList.empty();
 

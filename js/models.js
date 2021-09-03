@@ -106,7 +106,7 @@ class StoryList {
  * User: a user in the system (only used to represent the current user)
  */
 
-class User {
+class User {      //*** should add a function to check if its a favorite or not */
   /** Make user instance from obj of user data and a token:
    *   - {username, name, createdAt, favorites[], ownStories[]}
    *   - token
@@ -249,7 +249,7 @@ class User {
 
     this.favorites.splice(storyIndex, 1);
     console.log("this.favorites is ", this.favorites);
-  }
+  }// this.favorites = to filtered 
 
 }
 
