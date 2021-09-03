@@ -80,24 +80,34 @@ $submitForm.on("submit", putSubmittedStoryOnPage);
 */
 function checkFavoritesList(evt){
 
-  let starParentId = evt.target.parentElement.id
-  let currStory = storyList.stories.find(story => story.storyId === starParentId)
-  console.log("currStory is ", currStory)
-  //console.log("starParent", starParent)
-  let storyIndex = currentUser.favorites.findIndex(story => story.storyId === currStory.id);
-  console.debug("checkFavorites")
+  const starParentId = evt.target.parentElement.id;
+  const currStory = storyList.stories.find(story => story.storyId === starParentId);
+  const clickedStoryId = currStory.storyId;
+  const storyIndex = currentUser.favorites.findIndex(story => story.storyId === clickedStoryId);
+
   if (storyIndex === -1){
     currentUser.addFavorite(currStory)
-    console.log("evt.target is ", evt.target)
-    $(evt.target).removeClass("far fa-star star").addClass("fas fa-star star")
+    $(evt.target).toggleClass("fas far");
   }
   else{
     currentUser.removeFavorite(currStory)
-    $(evt.target).removeClass("fas fa-star star").addClass("far fa-star star")
+    $(evt.target).toggleClass("fas far");
   }
 }
 
-
 $allStoriesList.on("click", ".star", checkFavoritesList)
 
+/** Adding favorite stories to the HTML
+ */
+
+ function getAndShowFavorites() {
+
+  $favStoriesList.empty();
+
+  // loop through all of our favorite stories and generate HTML for them
+  for (let story of currentUser.favorites) {
+    const $story = generateStoryMarkup(story);
+    $favStoriesList.append($story);
+  }
+}
 

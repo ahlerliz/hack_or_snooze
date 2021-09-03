@@ -36,7 +36,8 @@
 <nav>
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
-    <a href="#" class="nav-link" id="nav-submit">submit</a>
+    <a href="#" class="nav-link hidden" id="nav-submit">submit</a>
+    <a href="#" class="nav-link hidden" id="nav-faves" >favorites</a>
   </div>
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
@@ -49,11 +50,11 @@
 <section class="new-article-section">
   <form action="/" class="new-article-form hidden" id="submit-form">
     <label for="author">Author</label>
-    <input type="text" id="author" placeholder="author name">
+    <input type="text" id="author" placeholder="author name" required>
     <label for="title">Title</label>
-    <input type="text" id="title" placeholder="story title">
+    <input type="text" id="title" placeholder="story title" required>
     <label for="url">URL</label>
-    <input type="text" id="url" placeholder="story url">
+    <input type="text" id="url" placeholder="story url" required>
     <button type="submit">Submit</button>
   </form>
 </section>
@@ -67,6 +68,9 @@
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
+
+  <!-- List of favorite stories -->
+  <ol id="favorite-stories-list" class="stories-list hidden"></ol>
 
 </section>
 

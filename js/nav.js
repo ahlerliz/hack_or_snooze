@@ -10,6 +10,7 @@ function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
   putStoriesOnPage();
+  $submitForm.hide();
 }
 
 $body.on("click", "#nav-all", navAllStories);
@@ -33,6 +34,8 @@ function updateNavOnLogin() {
   $navLogin.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
+  $navSubmit.show();
+  $navFavorites.show();
 }
 
 /** Show submit form for a new story when a user clicks submit  */
@@ -44,5 +47,15 @@ function navSubmitClick(evt) {
 
 $navSubmit.on("click", navSubmitClick);
 
+/** When "favorites" is clicked in the nav bar, show list of favorite articles
+ * and hide all others */
+function navFavoritesClick(evt){
+  $allStoriesList.hide();
+  $submitForm.hide();
+  getAndShowFavorites();
+  $favStoriesList.show();
+}
+
+$navFavorites.on("click", navFavoritesClick);
 
 

@@ -98,8 +98,6 @@ class StoryList {
     console.log("currentUser.ownStories is ", currentUser.ownStories)
     
     return storyInstance;
-
-    //TO DO: add the story instance to list of stories and own stories
   }
 }
 
@@ -224,9 +222,6 @@ class User {
    * 
    */
 
-
-
-
   async addFavorite(storyInstance){
     const response = await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${storyInstance.storyId}`,
@@ -248,27 +243,14 @@ class User {
       method: "DELETE",
       data: { token: this.loginToken },
     });
-    const storyIndex = this.favorites.findIndex(storyInstance);
-    this.favorites.slice(storyIndex, 1);
+
+    const storyIndex = this.favorites.findIndex(story => story.storyId === storyInstance.storyId);
+    console.log("storyIndex is ", storyIndex);
+
+    this.favorites.splice(storyIndex, 1);
     console.log("this.favorites is ", this.favorites);
   }
 
-  
 }
 
 
-
-// there will be stars next to each article
-// when a user clicks on one, that article will be added to their favorites list
-
-/*
-      <li id="${story.storyId}">
-        <i></i><a href="${story.url}" target="a_blank" class="story-link">
-          ${story.title}
-        </a>
-        <small class="story-hostname">(${hostName})</small>
-        <small class="story-author">by ${story.author}</small>
-        <small class="story-user">posted by ${story.username}</small>
-      </li>
-
-*/

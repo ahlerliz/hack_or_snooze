@@ -96,6 +96,17 @@ function saveUserCredentialsInLocalStorage() {
   }
 }
 
+/** Sync current user favorites to localStorage
+ *
+*/
+function saveUserFavoriteInLocalStorage() {
+  console.debug("saveUserFavoriteInLocalStorage");
+  if (currentUser) {
+    localStorage.setItem("token", currentUser.loginToken);
+    localStorage.setItem("username", currentUser.username);
+  }
+}
+
 /******************************************************************************
  * General UI stuff about users
  */
