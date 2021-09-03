@@ -227,9 +227,33 @@ class User {
 
 
 
-  addFavorite(evt){
-
+  async addFavorite(storyInstance){
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${storyInstance.storyId}`,
+      method: "POST",
+      data: { token: this.loginToken },
+    });
+    console.log("this is our reponse:", response);
+    this.favorites.push(storyInstance);
+    console.log("this.favorites is ", this.favorites);
   }
+
+  /** When a user unfavorites an article, DELETE from the API and remove it from their 
+   * favorites list
+   * 
+   */
+  async removeFavorite(storyInstance){
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${storyInstance.storyId}`,
+      method: "DELETE",
+      data: { token: this.loginToken },
+    });
+    const storyIndex = this.favorites.findIndex(storyInstance);
+    this.favorites.slice(storyIndex, 1);
+    console.log("this.favorites is ", this.favorites);
+  }
+
+  
 }
 
 

@@ -25,6 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <i class="far fa-star star">  </i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -70,5 +71,33 @@ async function putSubmittedStoryOnPage(evt){
 }
 
 $submitForm.on("submit", putSubmittedStoryOnPage);
+
+
+/**   When user clicks on a favorite star, checks if the story exists
+*     in the favorites list.
+*     if not --> adds story
+*     if yes --> removes story
+*/
+function checkFavoritesList(evt){
+
+  let starParentId = evt.target.parentElement.id
+  let currStory = storyList.stories.find(story => story.storyId === starParentId)
+  console.log("currStory is ", currStory)
+  //console.log("starParent", starParent)
+  let storyIndex = currentUser.favorites.findIndex(story => story.storyId === currStory.id);
+  console.debug("checkFavorites")
+  if (storyIndex === -1){
+    currentUser.addFavorite(currStory)
+    console.log("evt.target is ", evt.target)
+    $(evt.target).removeClass("far fa-star star").addClass("fas fa-star star")
+  }
+  else{
+    currentUser.removeFavorite(currStory)
+    $(evt.target).removeClass("fas fa-star star").addClass("far fa-star star")
+  }
+}
+
+
+$allStoriesList.on("click", ".star", checkFavoritesList)
 
 
