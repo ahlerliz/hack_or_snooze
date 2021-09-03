@@ -23,9 +23,9 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
-  getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+  getHostName(url) {
+    const hostname =  new URL(this.url).host;
+    return hostname;
   }
 }
 
@@ -91,6 +91,11 @@ class StoryList {
     
     let storyInstance = new Story(postStory.data.story);
     console.log("storyInstance", storyInstance);
+
+    storyList.stories.unshift(storyInstance);
+    console.log("storyList.stories is ", storyList.stories)
+    currentUser.ownStories.unshift(storyInstance);
+    console.log("currentUser.ownStories is ", currentUser.ownStories)
     
     return storyInstance;
 
@@ -213,4 +218,33 @@ class User {
       return null;
     }
   }
+
+  /** When a user favorites an article, POST to the API and add it to their 
+   * favorites list
+   * 
+   */
+
+
+
+
+  addFavorite(evt){
+
+  }
 }
+
+
+
+// there will be stars next to each article
+// when a user clicks on one, that article will be added to their favorites list
+
+/*
+      <li id="${story.storyId}">
+        <i></i><a href="${story.url}" target="a_blank" class="story-link">
+          ${story.title}
+        </a>
+        <small class="story-hostname">(${hostName})</small>
+        <small class="story-author">by ${story.author}</small>
+        <small class="story-user">posted by ${story.username}</small>
+      </li>
+
+*/
