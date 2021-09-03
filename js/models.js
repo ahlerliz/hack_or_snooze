@@ -74,11 +74,11 @@ class StoryList {
    */
 
   async addStory(user, {title, author, url}) {
-    // UNIMPLEMENTED: complete this function!
-    console.log("addStory has been called")
+  
+    console.log("addStory has been called");
 
-    let userToken = user.loginToken
-    console.log("userToken is: ", userToken)
+    let userToken = user.loginToken;
+    console.log("userToken is: ", userToken);
 
     let postStory = await axios({
       url: `${BASE_URL}/stories`,
@@ -87,16 +87,14 @@ class StoryList {
         token: userToken,
         story: {title, author, url}
     }});
-    console.log("postStory is: ", postStory)
+    console.log("postStory is: ", postStory);
     
-    let storyInstance = new Story(postStory);
-    console.log("storyInstance", storyInstance)
-    return storyInstance
+    let storyInstance = new Story(postStory.data.story);
+    console.log("storyInstance", storyInstance);
+    
+    return storyInstance;
 
-    // find user.logintoken to "post" to API
-    // create new Story class instance
-    // need an await in here ??
-    // return new Story class instance
+    //TO DO: add the story instance to list of stories and own stories
   }
 }
 

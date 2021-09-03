@@ -52,15 +52,21 @@ function putStoriesOnPage() {
 }
 
 /** Takes in the user submission values and appends to the page */
-console.log("we have run put submitted story")
-function putSubmittedStoryOnPage(){
-  preventDefault()
-  let submissionAuthor = $("#author").val()
-  let submissionTitle = $("#title").val()
-  let submissionUrl = $("#url").val()
-  let newSubmission = await StoryList.addStory(currentUser, {submissionAuthor, submissionTitle, submissionUrl})
-  const $story = generateStoryMarkup(newSubmission)
-  $allStoriesList.prepend($story)
+
+async function putSubmittedStoryOnPage(evt){
+  console.log("putSubmittedStoryOnPage has run")
+
+  evt.preventDefault();
+  const author = $("#author").val();
+  const title = $("#title").val();
+  const url = $("#url").val();
+
+  let newSubmission = await storyList.addStory(currentUser, 
+      {author, title, url});
+  const $story = generateStoryMarkup(newSubmission);
+  $allStoriesList.prepend($story);
+
+  $submitForm.hide();
 }
 
 $submitForm.on("submit", putSubmittedStoryOnPage);
